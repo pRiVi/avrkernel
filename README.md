@@ -1,4 +1,4 @@
 avrkernel
 =========
 
-Send your data through multiple AVRs in packets.
+Send your data in packets and adresses through multiple AVRs via its serial interface.
