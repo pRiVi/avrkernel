@@ -6,7 +6,7 @@
 #include "../main.h"
 #include "kernel.h"
 
-// #define sendFlashString(string, c) for(c=0;c<sizeof(string);c++) TransmitByte(pgm_read_byte(&string[c]));	  
+// #define sendFlashString(string, c) for(c=0;c<sizeof(string);c++) TransmitByte(pgm_read_byte(&string[c]));
 // #define bufFlashString(buffer, pre, string, c) for(c=0;c<sizeof(string);c++) buffer[c+pre] = pgm_read_byte(&string[c]); pre += (c-1);
 
 //#define TRANSBUFSIZECHECK 1
@@ -89,9 +89,9 @@ void sendPacket(unsigned char size) {
 }
 
 /* void TransmitByte (unsigned char data){
-  // Wait for empty transmit buffer 
+  // Wait for empty transmit buffer
   while (!(UCSRA & (1 << UDRE)));
-  // Start transmittion 
+  // Start transmittion
   CUR_UDR = data;
 }
 
@@ -177,7 +177,7 @@ unsigned char bufferNewPacket(unsigned char type) {
    if (bufpos == 255) return DROP; // Paket nicht pufferbar!
    PACKETTYPE(curpacket) = type;
    for(c=0; c<HEADERSIZE; c++) {
-      transbuf[bufpos+c] = headerbuf[c]; 
+      transbuf[bufpos+c] = headerbuf[c];
    }
    if (type == FORWARD) {
       PACKETSIZE(curpacket) = HEADERSIZE;
@@ -198,7 +198,7 @@ void processHeader(unsigned char curbyte) {
       headerbuf[1] +
       headerbuf[2] +
       headerbuf[3] +
-      headerbuf[4])) == 
+      headerbuf[4])) ==
       headerbuf[5]) &&
       (headerbuf[0] != 0)) { // checksum richtig
 #ifdef TRANSBUFSIZECHECK
@@ -206,9 +206,9 @@ void processHeader(unsigned char curbyte) {
       badheaderbytes = 0;
 #endif
       packetPos = HEADERSIZE;
-      if((headerbuf[3] == ADDRESS_H) && //Paket ist an dieses Bauteil adressiert 
+      if((headerbuf[3] == ADDRESS_H) && //Paket ist an dieses Bauteil adressiert
          (headerbuf[4] == ADDRESS_L)) {
-         action = 
+         action =
 #if defined(NOINCOMINGPACKETS)
          DROP;
 #else
@@ -260,7 +260,7 @@ void processStream(unsigned char curbyte) {
             transbuf[bufpos+(packetPos-1)] = curbyte;
             if (packetPos >= headerbuf[0]) PACKETTYPE(curpacket) = READY;
          }
-      }         
+      }
    }
    if (packetPos >= headerbuf[0]){ //Paket komplett
       for (c = 0; c< HEADERSIZE; c++) { headerbuf[c] = 0; }
